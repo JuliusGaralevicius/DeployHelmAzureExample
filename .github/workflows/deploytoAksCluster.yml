@@ -3,6 +3,7 @@ env:
   PROJECT_NAME: "weatherforecast"
   RESOURCE_GROUP: "Prisoners"
   CLUSTER_NAME: "prisonerscluster"
+  CHART_PATH: "charts/weatherforecast"
   
 on: [push]
 jobs:
