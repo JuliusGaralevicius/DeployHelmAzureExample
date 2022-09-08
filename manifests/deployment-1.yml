@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "prisonerscluster-96c9"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "prisonerscluster-96c9"
+  template:
+    metadata:
+      labels:
+        app: "prisonerscluster-96c9"
+    spec:
+      containers:
+        - name: "prisonerscluster-96c9"
+          image: "juliuscreg.azurecr.io/prisonerscluster"
+          ports:
+          - containerPort: 80
