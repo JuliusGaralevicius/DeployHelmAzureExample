@@ -4,6 +4,7 @@ env:
   RESOURCE_GROUP: "Prisoners"
   CLUSTER_NAME: "prisonerscluster"
   CHART_PATH: "charts/weatherforecast"
+  VERSION: "1.0.0"
   
 on: [push]
 jobs:
@@ -21,8 +22,8 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ 1.0.0 }} --label dockerfile-path=AzureTest.Service/Dockerfile
-        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ 1.0.0 }}
+        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ env.VERSION }} --label dockerfile-path=AzureTest.Service/Dockerfile
+        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ env.VERSION }}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -62,6 +63,6 @@ jobs:
         namespace: default
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
-          ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ 1.0.0}}
+          ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ env.VERSION}}
         imagepullsecrets: |
           prisonerscludockerauth
