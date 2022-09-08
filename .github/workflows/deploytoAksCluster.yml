@@ -21,7 +21,7 @@ jobs:
       id: build-image
       run: |
         docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ github.sha }} --label dockerfile-path=AzureTest.Service/Dockerfile
-        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}
+        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
       with:
