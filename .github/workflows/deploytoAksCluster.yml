@@ -21,8 +21,8 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ github.sha }} --label dockerfile-path=AzureTest.Service/Dockerfile
-        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ 1.0.0 }} --label dockerfile-path=AzureTest.Service/Dockerfile
+        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ 1.0.0 }}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -62,6 +62,6 @@ jobs:
         namespace: default
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
-          ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ github.sha }}
+          ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ 1.0.0}}
         imagepullsecrets: |
           prisonerscludockerauth
