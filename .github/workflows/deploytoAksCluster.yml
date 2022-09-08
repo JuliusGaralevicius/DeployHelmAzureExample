@@ -66,4 +66,3 @@ jobs:
           ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ env.VERSION}}
         imagepullsecrets: |
           prisonerscludockerauth
-        imagePullPolicy: Always
