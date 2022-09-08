@@ -1,3 +1,9 @@
+env:
+  AZURE_CONTAINER_REGISTRY: "juliuscreg"
+  PROJECT_NAME: "weatherforecast"
+  RESOURCE_GROUP: "Prisoners"
+  CLUSTER_NAME: "prisonerscluster"
+  
 on: [push]
 jobs:
   build-and-deploy:
@@ -7,15 +13,15 @@ jobs:
     
     - uses: azure/docker-login@v1
       with:
-        login-server: juliuscreg.azurecr.io
+        login-server: ${{AZURE_CONTAINER_REGISTRY}}.azurecr.io
         username: ${{ secrets.acr_juliuscreg_username }}
         password: ${{ secrets.acr_juliuscreg_password }}
     
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t juliuscreg.azurecr.io/prisonerscluster:${{ github.sha }} --label dockerfile-path=AzureTest.Service/Dockerfile
-        docker push juliuscreg.azurecr.io/prisonerscluster:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t juliuscreg.azurecr.io/${{env.PROJECT_NAME}}:${{ github.sha }} --label dockerfile-path=AzureTest.Service/Dockerfile
+        docker push ${{AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -37,14 +43,24 @@ jobs:
         container-registry-username: ${{ secrets.acr_juliuscreg_username }}
         container-registry-password: ${{ secrets.acr_juliuscreg_password }}
         secret-name: prisonerscludockerauth
+
+    # Runs Helm to create manifest files
+    - name: Bake deployment
+      uses: azure/k8s-bake@v2.1
+      with:
+        renderEngine: 'helm'
+        helmChart: ${{ env.CHART_PATH }}
+        overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
+        overrides: |     
+          replicas:2
+        helm-version: 'latest' 
+      id: bake
        
     - uses: azure/k8s-deploy@v1.2
       with:
         namespace: default
-        manifests: |
-          manifests/deployment-1.yml
-          manifests/service-1.yml
+        manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
-          juliuscreg.azurecr.io/prisonerscluster:${{ github.sha }}
+          ${{AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ github.sha }}
         imagepullsecrets: |
           prisonerscludockerauth
