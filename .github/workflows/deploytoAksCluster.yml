@@ -13,7 +13,7 @@ jobs:
     
     - uses: azure/docker-login@v1
       with:
-        login-server: ${{AZURE_CONTAINER_REGISTRY}}.azurecr.io
+        login-server: ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io
         username: ${{ secrets.acr_juliuscreg_username }}
         password: ${{ secrets.acr_juliuscreg_password }}
     
@@ -21,7 +21,7 @@ jobs:
       id: build-image
       run: |
         docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t juliuscreg.azurecr.io/${{env.PROJECT_NAME}}:${{ github.sha }} --label dockerfile-path=AzureTest.Service/Dockerfile
-        docker push ${{AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}
+        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -61,6 +61,6 @@ jobs:
         namespace: default
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
-          ${{AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ github.sha }}
+          ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ github.sha }}
         imagepullsecrets: |
           prisonerscludockerauth
