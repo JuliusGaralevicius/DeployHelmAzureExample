@@ -28,7 +28,7 @@ jobs:
       id: read-chart
       uses: jacobtomlinson/gha-read-helm-chart@master
       with:
-        path: ${{CHART_PATH}}
+        path: ${{ env.CHART_PATH}}
     
     - name: Build and push image to ACR
       id: build-image
