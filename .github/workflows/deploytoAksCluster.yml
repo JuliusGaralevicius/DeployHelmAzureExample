@@ -56,7 +56,7 @@ jobs:
         overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
         overrides: |     
           replicas:2
-          'version:${{VERSION}}'
+          'version:${{ env.VERSION }}'
         helm-version: 'latest' 
       id: bake
        
