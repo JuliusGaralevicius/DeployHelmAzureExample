@@ -3,12 +3,14 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+version: dev
 
 image:
   repository: juliuscreg.azurecr.io/weatherforecast
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+  
 
 imagePullSecrets: []
 nameOverride: ""
