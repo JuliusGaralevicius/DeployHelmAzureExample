@@ -45,7 +45,7 @@ jobs:
         container-registry-url: ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io
         container-registry-username: ${{ secrets.acr_juliuscreg_username }}
         container-registry-password: ${{ secrets.acr_juliuscreg_password }}
-        secret-name: prisonerscludockerauth
+        secret-name: prisonersdockerauth
 
     # Runs Helm to create manifest files
     - name: Bake deployment
@@ -66,4 +66,4 @@ jobs:
         images: |
           ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{ env.PROJECT_NAME }}:${{ env.VERSION}}
         imagepullsecrets: |
-          prisonerscludockerauth
+          prisonersdockerauth
