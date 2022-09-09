@@ -33,8 +33,8 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ steps.read-chart.outputs.appVersion }}' --label dockerfile-path=AzureTest.Service/Dockerfile
-        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ steps.read-chart.outputs.appVersion }}'
+        docker build "$GITHUB_WORKSPACE" -f  "AzureTest.Service/Dockerfile" -t ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ steps.read-chart.outputs.appVersion }} --label dockerfile-path=AzureTest.Service/Dockerfile
+        docker push ${{ env.AZURE_CONTAINER_REGISTRY}}.azurecr.io/${{env.PROJECT_NAME}}:${{ steps.read-chart.outputs.appVersion }}
     
     - uses: azure/k8s-set-context@v1
       with:
