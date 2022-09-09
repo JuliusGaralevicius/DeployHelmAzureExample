@@ -29,6 +29,7 @@ namespace AzureTest.Service
             app.MapHealthChecks("/health/liveness");
             app.MapHealthChecks("/health/readiness");
 
+
             app.MapControllers();
 
             app.Run();
