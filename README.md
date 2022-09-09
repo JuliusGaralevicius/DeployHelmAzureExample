@@ -11,4 +11,8 @@ Attempts:
 2022-09-09 Trying again
 1. Messing about with permissions in azure and trying different things. Feels like poking in the dark.
 2. Was a helm values issue, now having some trouble with readiness probes but i think i'm close. Sharing values between helm and deployment job feels sluggish. Do I need an override for app version in the job?
-3. Everything seems to be deployed correctly, I still don't like that my previos deployment does not get overriden.
+3. Everything seems to be deployed correctly, I still don't like that my previuos deployment does not get overriden.
+4. Ok everything seems to be overriden fine i think. 
+Current workflow: 
+* Change Chart.yaml file to new version on dev branch.
+* githubactions detects the changes and pushes latest version (read from Chart.yaml).
