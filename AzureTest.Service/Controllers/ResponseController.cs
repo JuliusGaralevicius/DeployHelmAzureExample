@@ -7,11 +7,8 @@ namespace AzureTest.Service.Controllers
     public class ResponseController : ControllerBase
     {
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public ResponseController(ILogger<WeatherForecastController> logger)
+        public ResponseController()
         {
-            _logger = logger;
         }
 
         [HttpGet(Name = "Chatas")]
