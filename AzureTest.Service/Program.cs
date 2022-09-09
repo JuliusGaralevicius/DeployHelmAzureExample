@@ -26,6 +26,8 @@ namespace AzureTest.Service
 
             app.UseAuthorization();
 
+            app.MapHealthChecks("/health/liveness");
+            app.MapHealthChecks("/health/readiness");
 
             app.MapControllers();
 
