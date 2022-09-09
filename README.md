@@ -14,5 +14,6 @@ Attempts:
 3. Everything seems to be deployed correctly, I still don't like that my previuos deployment does not get overriden.
 4. Ok everything seems to be overriden fine i think. 
 Current workflow: 
-* Change Chart.yaml file to new version on dev branch.
-* githubactions detects the changes and pushes latest version (read from Chart.yaml).
+* Make changes in main branch
+* Merge master into dev (if Chart.yaml updated will build a new version, istead of overriding the old one)
+* Githubactions detects the changes and pushes latest version (read from Chart.yaml).
