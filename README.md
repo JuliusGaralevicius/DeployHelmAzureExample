@@ -10,4 +10,4 @@ Attempts:
 
 2022-09-09 Trying again
 1. Messing about with permissions in azure and trying different things. Feels like poking in the dark.
-2. Was a helm values issue, now having some trouble with readiness probes but i think i'm close. Sharing values between helm and deployment job feels sluggish.
+2. Was a helm values issue, now having some trouble with readiness probes but i think i'm close. Sharing values between helm and deployment job feels sluggish. Do I need an override for app version in the job?
