@@ -17,3 +17,6 @@ Current workflow:
 * Make changes in main branch
 * Merge master into dev (if Chart.yaml updated will build a new version, istead of overriding the old one)
 * Githubactions detects the changes and pushes latest version (read from Chart.yaml).
+
+2022-09-10
+Doing well, moving on to prisoners repo
