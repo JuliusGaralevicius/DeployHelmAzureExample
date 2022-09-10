@@ -17,6 +17,13 @@ namespace AzureTest.Service.Controllers
             return Ok(AnswersDatabase.Answers.OrderByDescending(x=>x.CreatedAt));
         }
 
+        [HttpGet(Name = "TotalAnswers")]
+        [Route("Total")]
+        public IActionResult TotalAnswers()
+        {
+            return Ok(AnswersDatabase.Answers.Count);
+        }
+
         [HttpPost(Name = "Atsakymas")]
         public IActionResult Atsakymas(PostAnswerRequest request)
         {
