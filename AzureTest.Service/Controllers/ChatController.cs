@@ -4,27 +4,28 @@ namespace AzureTest.Service.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ResponseController : ControllerBase
+    public class ChatController : ControllerBase
     {
 
-        public ResponseController()
+        public ChatController()
         {
         }
 
-        [HttpGet(Name = "Chatas")]
+        [HttpGet]
         public IActionResult Chatas()
         {
             return Ok(AnswersDatabase.Answers.OrderByDescending(x=>x.CreatedAt));
         }
 
-        [HttpGet(Name = "TotalAnswers")]
+        [HttpGet]
         [Route("Total")]
         public IActionResult TotalAnswers()
         {
             return Ok(AnswersDatabase.Answers.Count);
         }
 
-        [HttpPost(Name = "Atsakymas")]
+        [HttpPost]
+        [Route("Answer")]
         public IActionResult Atsakymas(PostAnswerRequest request)
         {
             AnswersDatabase.Answers.Add(new Answer { CreatedAt = DateTimeOffset.UtcNow, Text = request.Answer });
